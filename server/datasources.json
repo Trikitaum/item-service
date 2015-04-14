@@ -1,0 +1,15 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongodb_dev": {
+    "name": "mongodb_dev",
+    "connector": "mongodb",
+    "host": "boot2docker.me",
+    "database": "devDB",
+    "username": "",
+    "password": "",
+    "port": 27017
+  }
+}
