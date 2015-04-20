@@ -28,7 +28,7 @@ deploy:
           -X POST \
           -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
-          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h1", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
+          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h1", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_1":18}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
           'http://$PROD_SERVER/v1/containers'
       - script:
         name: desplegar la nueva version en nodo 3
@@ -37,7 +37,7 @@ deploy:
           -X POST \
           -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
-          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h3", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
+          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h3", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_3":17}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
           'http://$PROD_SERVER/v1/containers'
       - script:
         name: instalacion de herramientas json
