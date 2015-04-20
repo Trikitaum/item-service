@@ -21,31 +21,31 @@ build:
           docker push quay.io/company/inventario
 deploy:
   steps:
-      - script:
-        name: desplegar la nueva version en nodo 1
-        code: |
-          curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
-          -X POST \
-          -H 'Accept: application/json' \
-          -H 'Content-Type: application/json' \
-          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h1", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_1":18}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
-          'http://$PROD_SERVER/v1/containers'
-      - script:
-        name: desplegar la nueva version en nodo 3
-        code: |
-          curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
-          -X POST \
-          -H 'Accept: application/json' \
-          -H 'Content-Type: application/json' \
-          -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h3", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_3":17}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
-          'http://$PROD_SERVER/v1/containers'
-      - script:
-        name: instalacion de herramientas json
-        code: |
-          curl -L http://github.com/micha/jsawk/raw/master/jsawk > jsawk
-          chmod 755 jsawk
-      - script:
-        name: restart el proxy
-        code: |
-          $CONTAINER_ID=(curl -s http://$PROD_SERVER/v1/containers?name=docker-proxy | jsawk -a 'return this.data[0].id')
-          curl http://$PROD_SERVER/v1/containers/$CONTAINER_ID/?action=restart
+    - script:
+      name: desplegar la nueva version en nodo 1
+      code: |
+        curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
+        -X POST \
+        -H 'Accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h1", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_1":18}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
+        'http://$PROD_SERVER/v1/containers'
+    - script:
+      name: desplegar la nueva version en nodo 3
+      code: |
+        curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
+        -X POST \
+        -H 'Accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d '{"count":1, "imageUuid":"quay.io/company/inventario", "name":"inventario", "networkIds":[], "ports":[], "requestedHostId":"1h3", "startOnCreate":true, "commandArgs":[], "publishAllPorts":false, "privileged":false, "capAdd":[], "capDrop":[], "dns":[], "dnsSearch":[], "instanceLinks":{"mongo_3":17}, "stdinOpen":false, "tty":false, "entryPoint":[], "restartPolicy":null, "devices":[], "dataVolumes":[], "dataVolumesFrom":[]}' \
+        'http://$PROD_SERVER/v1/containers'
+    - script:
+      name: instalacion de herramientas json
+      code: |
+        curl -L http://github.com/micha/jsawk/raw/master/jsawk > jsawk
+        chmod 755 jsawk
+    - script:
+      name: restart el proxy
+      code: |
+        $CONTAINER_ID=(curl -s http://$PROD_SERVER/v1/containers?name=docker-proxy | jsawk -a 'return this.data[0].id')
+        curl http://$PROD_SERVER/v1/containers/$CONTAINER_ID/?action=restart
